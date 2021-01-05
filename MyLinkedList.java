@@ -26,9 +26,12 @@ public class MyLinkedList{
    return true;
  }
 
+//the below method might return void, check hw discussion
  public boolean add(int index, String value) {
    Node x = new Node(value);
-   if (index > size | index < 0) return false; //should throw but i just down want to worry about it
+   if (index > size | index < 0) {
+     throw new IndexOutOfBoundsException("Index " + index + " is out of bounds");
+   }
    if (index == size) {
      return add(value);
    } else if (index == 0) {
@@ -46,11 +49,16 @@ public class MyLinkedList{
  }
 
  public String get(int index) {
+   if (index >= size | index < 0) {
+     throw new IndexOutOfBoundsException("Index " + index + " is out of bounds");
+   }
    return findNth(index).data();
  }
 
  public String set(int index, String value) {
-   if (index >= size | index < 0) return "false";
+   if (index >= size | index < 0) {
+     throw new IndexOutOfBoundsException("Index " + index + " is out of bounds");
+   }
    Node b; String temp;
    if (index == size - 1) {
      b = tail;
@@ -78,26 +86,28 @@ public class MyLinkedList{
    Node current = head;
    String ans = "";
    for (int i = 0; i < size; i++) {
-     ans += current.data() + "/";
+     ans += current.data() + ", ";
      current = current.next();
    }
-   return ans;
+   return ans.substring(0, ans.length() - 2);
   }
 
   public String toStringBack() {
     Node current = tail;
     String ans = "";
     for (int i = 0; i < size; i++) {
-      ans = current.data() + "/" + ans;
+      ans = current.data() + ", " + ans;
       current = current.prev();
     }
-    return ans;
+    return ans.substring(0, ans.length() - 2);
    }
 
   private Node findNth(int index) {
     Node current;
-    //if (size/2 < index) {
-    if (false) {
+    if (index >= size | index < 0) {
+      throw new IndexOutOfBoundsException("Index " + index + " is out of bounds");
+    }
+    if (size/2 < index) {
       current = tail;
       for (int i = size; i > index; i--) {
         current = current.prev();

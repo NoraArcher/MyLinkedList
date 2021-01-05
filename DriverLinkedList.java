@@ -18,7 +18,29 @@ public class DriverLinkedList {
     gibby.set(6, "Fuchs");
     gibby.add("Gepard");
     System.out.println(gibby.toString());
-    System.out.println(gibby.get(4));
+    //need to test for index out of bound exceptions, with try and catch
+    try {
+      gibby.get(-2);
+    } catch (IndexOutOfBoundsException e) {
+      System.out.println("caught it!");
+    } catch (RuntimeException e) {
+      System.out.println("it fell doofus");
+    }
+    try {
+      gibby.add(9, "Helga the Zoo-Keeper");
+    } catch (IndexOutOfBoundsException e) {
+      System.out.println("caught it!");
+    } catch (RuntimeException e) {
+      System.out.println("it fell doofus");
+    }
+    try {
+      gibby.set(8, "pigeons");
+    } catch (IndexOutOfBoundsException e) {
+      System.out.println("caught it!");
+    } catch (RuntimeException e) {
+      System.out.println("it fell doofus");
+    }
+    System.out.println(gibby.toStringBack());
   }
 
 
