@@ -27,24 +27,22 @@ public class MyLinkedList{
  }
 
 //the below method might return void, check hw discussion
- public boolean add(int index, String value) {
+ public void add(int index, String value) {
    Node x = new Node(value);
    if (index > size | index < 0) {
      throw new IndexOutOfBoundsException("Index " + index + " is out of bounds");
    }
    if (index == size) {
-     return add(value);
+     add(value);
    } else if (index == 0) {
      x.setNext(head); head.setPrev(x);
      head = x;
      size++;
-     return true;
    } else {
      Node y = findNth(index);
      Node z = y.prev();
      x.setNext(y);  x.setPrev(z); y.setPrev(x); z.setNext(x);
      size++;
-     return true;
    }
  }
 
@@ -107,9 +105,10 @@ public class MyLinkedList{
     if (index >= size | index < 0) {
       throw new IndexOutOfBoundsException("Index " + index + " is out of bounds");
     }
+    //if (false) {
     if (size/2 < index) {
       current = tail;
-      for (int i = size; i > index; i--) {
+      for (int i = size - 1; i > index; i--) {
         current = current.prev();
       }
     } else {

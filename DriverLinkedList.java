@@ -4,11 +4,12 @@ public class DriverLinkedList {
 
   public static void main(String[] args) {
     MyLinkedList gibby = new MyLinkedList();
-    System.out.println(gibby.size());
     gibby.add("Affe"); gibby.add("Bruecke"); gibby.add("Drucker");
     System.out.println(gibby.size());
     System.out.println(gibby.toString());
+    System.out.println("Should be the same " +gibby.get(0)+"/"+gibby.get(1)+"/"+gibby.get(2)+"\n");
     gibby.add(2, "Christkind");
+    System.out.println(gibby.toString());
     gibby.set(1, "Biene");
     gibby.set(3, "Dachs");
     gibby.add(4, "Eichhoernchen");
