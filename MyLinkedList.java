@@ -26,8 +26,8 @@ public class MyLinkedList{
    return true;
  }
 
- public void add(int index, String value) {
-   Node x = new Node(value);
+ public void add(int index, String value) { // index = 2, value = Chr., this = Affe/Bruecke/Drucker
+   Node x = new Node(value); // x = Chr., next null, prev null
    if (index > size | index < 0) {
      throw new IndexOutOfBoundsException("Index " + index + " is out of bounds");
    }
@@ -37,10 +37,15 @@ public class MyLinkedList{
      x.setNext(head); head.setPrev(x);
      head = x;
      size++;
+   } else if (index == size - 1) {
+     x.setNext(tail); x.setPrev(tail.prev());
+     tail.prev().setNext(x);  tail.setPrev(x);
+     size++;
    } else {
-     Node y = findNth(index);
-     Node z = y.prev();
-     x.setNext(y);  x.setPrev(z); y.setPrev(x); z.setNext(x);
+     Node ahead = findNth(index);
+     ahead.next().setPrev(ahead);
+     x.setNext(ahead);  x.setPrev(ahead.prev());
+     ahead.prev().setNext(x);
      size++;
    }
  }
@@ -56,21 +61,25 @@ public class MyLinkedList{
    if (index >= size | index < 0) {
      throw new IndexOutOfBoundsException("Index " + index + " is out of bounds");
    }
-   Node b; String temp;
-   if (index == size - 1) {
-     b = tail;
-     temp = b.data();
+   String temp;
+   if (size == 1) {
+     temp = tail.data();
+     tail.setData(value);
+     head = tail;
+   } else if (index == size - 1) {
+     Node b = tail;
+     temp = b.data(); // temp = drucker
      b.setData(value);
      b.prev().setNext(b);
      tail = b;
    } else if (index == 0) {
-     b = head;
+     Node b = head;
      temp = b.data();
      b.setData(value);
      b.next().setPrev(b);
      head = b;
    } else {
-     b = findNth(index);
+     Node b = findNth(index);
      temp = b.data();
      b.setData(value);
      b.prev().setNext(b);
@@ -168,6 +177,11 @@ public class MyLinkedList{
    return t;
  }
 
+ /*
+*@postcondition: All of the elements from other are removed from the other, and connected to the end of this linked list.
+*@postcondition: The size of other is reduced to 0.
+*@postcondition: The size of this is now the combined sizes of both original lists
+*/
  public void extend(MyLinkedList other){
    other.head.setPrev(this.tail);
    this.tail.setNext(other.head);
@@ -177,11 +191,11 @@ public class MyLinkedList{
    other.head = null;
    other.tail = null;
  }
- /*
-*@postcondition: All of the elements from other are removed from the other, and connected to the end of this linked list.
-*@postcondition: The size of other is reduced to 0.
-*@postcondition: The size of this is now the combined sizes of both original lists
-*/
+
+///PART 3?
+
+
+
 
 ///////////
 }

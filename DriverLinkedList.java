@@ -9,6 +9,8 @@ public class DriverLinkedList {
     System.out.println(gibby.toString());
     System.out.println("Should be the same " +gibby.get(0)+"/"+gibby.get(1)+"/"+gibby.get(2)+"\n");
     gibby.add(2, "Christkind");
+    System.out.println("size now: "+gibby.size()+", head now: "+gibby.getHead()+", tail now: "+gibby.getTail());
+    System.out.println("Should be: " +gibby.get(0)+"/"+gibby.get(1)+"/"+gibby.get(2)+"/"+gibby.get(3)+"/\n");
     System.out.println(gibby.toString());
     gibby.set(1, "Biene");
     gibby.set(3, "Dachs");
@@ -43,7 +45,16 @@ public class DriverLinkedList {
     }
     System.out.println(gibby.toStringBack());
     System.out.println(gibby.toStringReversed());
+
+    MyLinkedList dippy = new MyLinkedList();
+    dippy.add("The Blah");
+    System.out.println( "\n\nOriginal: "+ dippy.toStringBack() ); //
+    dippy.add(0, "Prequel");
+    System.out.println( "Result: "+dippy.toStringBack() ); //
+
+
   }
+
 
 
 //
