@@ -42,6 +42,7 @@ public class DriverLinkedList {
       System.out.println("it fell doofus");
     }
     System.out.println(gibby.toStringBack());
+    System.out.println(gibby.toStringReversed());
   }
 
 

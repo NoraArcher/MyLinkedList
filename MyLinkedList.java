@@ -26,7 +26,6 @@ public class MyLinkedList{
    return true;
  }
 
-//the below method might return void, check hw discussion
  public void add(int index, String value) {
    Node x = new Node(value);
    if (index > size | index < 0) {
@@ -81,52 +80,108 @@ public class MyLinkedList{
  }
 
  public String toString() {
+   if (size == 0) return "[]";
    Node current = head;
-   String ans = "";
+   String ans = "[";
    for (int i = 0; i < size; i++) {
      ans += current.data() + ", ";
      current = current.next();
    }
-   return ans.substring(0, ans.length() - 2);
-  }
+   return ans.substring(0, ans.length() - 2) + "]";
+ }
 
-  public String toStringBack() {
-    Node current = tail;
-    String ans = "";
-    for (int i = 0; i < size; i++) {
-      ans = current.data() + ", " + ans;
-      current = current.prev();
-    }
-    return ans.substring(0, ans.length() - 2);
+ public String toStringBack() {
+   if (size == 0) return "[]";
+   Node current = tail;
+   String ans = "";
+   for (int i = 0; i < size; i++) {
+     ans = current.data() + ", " + ans;
+     current = current.prev();
    }
+   return "["+ans.substring(0, ans.length() - 2) + "]";
+ }
 
-  private Node findNth(int index) {
-    Node current;
-    if (index >= size | index < 0) {
-      throw new IndexOutOfBoundsException("Index " + index + " is out of bounds");
-    }
-    //if (false) {
-    if (size/2 < index) {
-      current = tail;
-      for (int i = size - 1; i > index; i--) {
-        current = current.prev();
-      }
-    } else {
-      current = head;
-      for (int i = 0; i < index; i++) {
-        current = current.next();
-      }
-    }
-    return current;
-  }
+ public String toStringReversed() {
+   if (size == 0) return "[]";
+   Node current = tail;
+   String ans = "[";
+   for (int i = 0; i < size; i++) {
+     ans += current.data() + ", ";
+     current = current.prev();
+   }
+   return ans.substring(0, ans.length() - 2) + "]";
+ }
 
-  public String getTail() {
-    return tail.data();
-  }
+ private Node findNth(int index) {
+   Node current;
+   if (index >= size | index < 0) {
+     throw new IndexOutOfBoundsException("Index " + index + " is out of bounds");
+   }
+   if (size/2 < index) {
+     current = tail;
+     for (int i = size - 1; i > index; i--) {
+       current = current.prev();
+     }
+   } else {
+     current = head;
+     for (int i = 0; i < index; i++) {
+       current = current.next();
+     }
+   }
+   return current;
+ }
 
-  public String getHead() {
-    return head.data();
-  }
+ public String getTail() {
+   return tail.data();
+ }
+
+ public String getHead() {
+   return head.data();
+ }
+
+ ///PART 2
+
+ //There should be several cases: removing the head/tail , removing the final element of a list (size 1 list), and removing from the middle.
+ public String remove(int index) {
+   if (index >= size | index < 0) {
+     throw new IndexOutOfBoundsException("Index " + index + " is out of bounds");
+   }
+   Node gone = findNth(index);
+   String t = gone.data();
+   if (size == 1) {
+     head = null;
+     tail = null;
+     size = 0;
+   } else if (index == size - 1) { // remove tail
+     gone.prev().setNext(null);
+     tail = gone.prev();
+     size--;
+   } else if (index == 0) { // remove head
+     gone.next().setPrev(null);
+     head = gone.next();
+     size--;
+   } else {
+     gone.prev().setNext(gone.next());
+     gone.next().setPrev(gone.prev());
+     size--;
+   }
+   return t;
+ }
+
+ public void extend(MyLinkedList other){
+   other.head.setPrev(this.tail);
+   this.tail.setNext(other.head);
+   this.tail = other.tail;
+   this.size += other.size;
+   other.size = 0;
+   other.head = null;
+   other.tail = null;
+ }
+ /*
+*@postcondition: All of the elements from other are removed from the other, and connected to the end of this linked list.
+*@postcondition: The size of other is reduced to 0.
+*@postcondition: The size of this is now the combined sizes of both original lists
+*/
 
 ///////////
 }
