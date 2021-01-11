@@ -54,7 +54,6 @@ public class TesterLinkedList{
 
     a.extend(b);
     System.out.println("A:"+a+a.size());
-    System.out.println("B size:"+ b.size());
     System.out.println("B:"+b+b.size());
     System.out.println("A reversed:"+a.toStringReversed()+a.size());
     System.out.println("B reversed:"+b.toStringReversed()+b.size());
@@ -72,6 +71,12 @@ public class TesterLinkedList{
     System.out.println("Even A: "+a3+a3.size());
     x.remove(0);
     System.out.println("One-Node now No-Node linked list:"+x);
+
+    MyLinkedList nunya = new MyLinkedList();
+    System.out.println();
+    nunya.extend(a);
+    System.out.println("A:"+a+a.size());
+    System.out.println("N:"+nunya+nunya.size());
 
   }
 }

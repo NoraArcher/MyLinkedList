@@ -26,8 +26,8 @@ public class MyLinkedList{
    return true;
  }
 
- public void add(int index, String value) { // index = 2, value = Chr., this = Affe/Bruecke/Drucker
-   Node x = new Node(value); // x = Chr., next null, prev null
+ public void add(int index, String value) { // index = 2, value = "1x"., this = 0x, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9  size =11
+   Node x = new Node(value); // x = "1x", next null, prev null
    if (index > size | index < 0) {
      throw new IndexOutOfBoundsException("Index " + index + " is out of bounds");
    }
@@ -44,8 +44,10 @@ public class MyLinkedList{
    } else {
      Node ahead = findNth(index);
      ahead.next().setPrev(ahead);
-     x.setNext(ahead);  x.setPrev(ahead.prev());
+     x.setNext(ahead);
+     x.setPrev(ahead.prev());
      ahead.prev().setNext(x);
+     ahead.setPrev(x);
      size++;
    }
  }
@@ -114,10 +116,11 @@ public class MyLinkedList{
    if (size == 0) return "[]";
    Node current = tail;
    String ans = "[";
-   for (int i = 0; i < size; i++) {
+   for (int i = 0; i < size - 1; i++) {
      ans += current.data() + ", ";
      current = current.prev();
    }
+   ans += current.data() + ", ";
    return ans.substring(0, ans.length() - 2) + "]";
  }
 
@@ -183,9 +186,16 @@ public class MyLinkedList{
 *@postcondition: The size of this is now the combined sizes of both original lists
 */
  public void extend(MyLinkedList other){
-   other.head.setPrev(this.tail);
-   this.tail.setNext(other.head);
-   this.tail = other.tail;
+   if (this.size < 1) {
+     this.head = other.head;
+     this.tail = other.tail;
+   } else if (other.size < 1) {
+     int x = 1;
+   } else {
+     other.head.setPrev(this.tail);
+     this.tail.setNext(other.head);
+     this.tail = other.tail;
+   }
    this.size += other.size;
    other.size = 0;
    other.head = null;
